@@ -24,7 +24,7 @@ class SolveLinearQuations() {
             "*" -> result = (op1.getValue() * op2.getValue()).toString()
             "/" -> result = (op1.getValue() / op2.getValue()).toString()
         }
-        
+
         if (checkX(op1, op2)) { // Проверяет было ли одно из чисел х. Если да то в value добавляет х
             result += "x"
         }
@@ -91,9 +91,9 @@ class SolveLinearQuations() {
                 open = i
             } else if (a.isClose()) {
                 close = i
-                
+
                 // Так как CSE может вернуть массив, нужно вписывать ответ по другому
-                
+
                 // Это массив для счёта
                 var mass = ar.filterIndexed { index, s ->
                     return@filterIndexed index in (open + 1) until close
@@ -114,7 +114,7 @@ class SolveLinearQuations() {
                 } as MutableList<StackItemClass>
 
                 ar.clear()
-                
+
                 // Тут я переписываю массив ar
                 for (v in array1) {
                     ar.add(v)
@@ -139,7 +139,7 @@ class SolveLinearQuations() {
     }
 
     fun toOpenBrackets(ar: MutableList<StackItemClass>): MutableList<StackItemClass> { // Открывает скобки
-    
+
         var list = ar // Массив равный массиву данного при вызове. Нужен чтобы можно было его редактировать.
         var open = 0
         var close = 0
@@ -156,11 +156,11 @@ class SolveLinearQuations() {
                     previousSize = size
                     arrayForCalc = calcBrackets(arrayForCalc)
                     size = arrayForCalc.size
-                }   // В конце остаётся до конца открытый массив. Поэтому я думаю всё таки удалить эту функцию и просто сразу отдавать массив в 
+                }   // В конце остаётся до конца открытый массив. Поэтому я думаю всё таки удалить эту функцию и просто сразу отдавать массив в
 
 
                 // В этом блоке я изменяю основной массив, так как функция calcBrackets может вернуть не один объект а массив. Например: 10-4x .
-                
+
                 // Это массив для части выражения, которая находится до участка который нужно вычеслить
                 val array1 = list.filterIndexed { index, s ->
                     return@filterIndexed index < tools.getIndLeft()
@@ -172,7 +172,7 @@ class SolveLinearQuations() {
                 } as MutableList<StackItemClass>
 
                 list.clear()
-                
+
                 // Тут я переписываю массив list
                 for (v in array1) {
                     list.add(v)
@@ -183,16 +183,16 @@ class SolveLinearQuations() {
                 for (v in array2) {
                     list.add(v)
                 }
-                
+
                 break  // Выход из цикла к return
             }
         }
         return list
     }
 
-    fun main(): MutableList<MutableList<StackItemClass>> {  //Возвращает резульат
+    fun main(): MutableList<StackItemClass> {  //Возвращает резульат
         var arr = tools.translate("(3+2)*2-(2+2)*x=2")  // Переводит строку в два массива: до равно и после. Сейчас пока решается только до равно.
-        var ar = toOpenBrackets(arr[0])   // Вызов функции для открытия скобок   
+        var ar = toOpenBrackets(arr[0])   // Вызов функции для открытия скобок
         return ar //Возвращает результат
     }
 }
@@ -201,7 +201,7 @@ val f = SolveLinearQuations()
 
 fun main() {    // Выводит результат в консоль
     val ar = f.main()
-    for (j in ar[0]) {
+    for (j in ar) {
         print(j.getString())
     }
 }
